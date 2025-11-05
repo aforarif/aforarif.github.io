@@ -133,7 +133,7 @@
     .kpi .v{font-size:22px; font-weight:700}
 
     /* Footer */
-    footer{margin-top:50px; padding:16px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.06)}
+    footer{margin-top:50px; padding:16px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.06); text-align:center}
 
     /* Contact card layout */
     .contact-grid{display:grid; grid-template-columns:1fr 0.9fr; gap:28px; align-items:start}
@@ -184,7 +184,6 @@
           <li><a href="#experience">Experience</a></li>
           <li><a href="#leadership">Leadership</a></li>
           <li><a href="#skills">Skills</a></li>
-          <li><a href="#cv">CV</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -216,13 +215,20 @@
 
       <!-- Right: Headline + about + KPIs -->
       <div class="card reveal">
-        <h2 class="title">Prospective MSc (Marketing & Business Analytics)</h2>
-        <p class="subtitle">Aspiring researcher in Digital Marketing, Strategy, Innovation & Consumer Behavior.</p>
-        <p class="muted">I am Md Ariful Islam from Dhaka, Bangladesh. I aim to pursue graduate studies focused on leveraging data to enhance marketing decision-making and drive business innovation within emerging markets.</p>
+        <h2 class="title">Prospective Graduate Student (Marketing &amp; Business Analytics)</h2>
+        <p class="subtitle" style="display:flex;align-items:center;gap:6px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>BBA in Marketing, University of Rajshahi, Bangladesh</p>
+        <p class="muted">Digital marketing professional passionate about leveraging data, experimentation, and strategic insight to drive growth and decision‑making. Skilled in full‑funnel execution, campaign optimization, and marketing analytics across global audiences.</p>
+        <p class="muted" style="margin-top:6px">Focused on bridging consumer psychology, platform strategy, and quantitative analysis to help organizations innovate and scale effectively in fast‑changing markets.</p>
         <div class="kpis" aria-label="Quick metrics" style="margin-top:12px">
           <div class="kpi"><div class="v" id="kpi-pubs">0</div><div class="muted">Publications</div></div>
           <div class="kpi"><div class="v" id="kpi-projects">0</div><div class="muted">Projects</div></div>
           <div class="kpi"><div class="v" id="kpi-talks">0</div><div class="muted">Conference Papers</div></div>
+          <a class="kpi kpi-link" href="assets/cv/cv.pdf" target="_blank" rel="noopener" aria-label="Curriculum Vitae (PDF)">
+            <div class="v" style="display:flex;align-items:center;gap:6px">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.103.897 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM8 20H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V6h2v2zm4 12h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V6h2v2zm2-6.586L19.586 8H16a2 2 0 0 1-2-2V3.414z"></path></svg>
+            </div>
+            <div class="muted">Curriculum Vitae</div>
+          </a>
         </div>
       </div>
     </section>
@@ -348,16 +354,7 @@
         <div class="item"><strong>Soft Skills:</strong> Leadership, Strategic Thinking, Communication, Event Planning</div>
         <div class="item"><strong>Languages:</strong> Bengali (Native), English (Proficient)</div>
       </div>
-    </section>
-
-    <!-- CV -->
-    <section id="cv" class="card reveal" style="margin-top:20px" aria-label="CV section">
-      <h3>Curriculum Vitae</h3>
-      <p class="muted">Add your PDF as <code>/assets/cv/cv.pdf</code> in the repository and update the link below.</p>
-      <a class="btn" href="assets/cv/cv.pdf" target="_blank" rel="noopener">Download CV</a>
-    </section>
-
-    <!-- Contact -->
+    </section><!-- Contact -->
     <section id="contact" class="card reveal" style="margin-top:20px" aria-label="Contact section">
       <h3>Contact</h3>
       <div class="contact-grid">
@@ -383,16 +380,16 @@
 
         <!-- Contact Info Right Side -->
         <div class="contact-info">
-          <p><strong>E-mail:</strong> <a href="mailto:arif.mkt.ru19@gmail.com">arif.mkt.ru19@gmail.com</a></p>
-          <p><strong>Alternative:</strong> <a href="mailto:s1911035109@ru.ac.bd">s1911035109@ru.ac.bd</a></p>
-          <p><strong>Cell:</strong> <a href="tel:+8801772672143">+880 1772672143</a></p>
-          <p><strong>Address:</strong> Dhaka, Bangladesh</p>
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M12 13.065L.003 6h23.994L12 13.065zM12 15.935L.003 9V18a3 3 0 003 3h17.994a3 3 0 003-3V9L12 15.935z"/></svg><strong>E-mail:</strong> <a href="mailto:arif.mkt.ru19@gmail.com">arif.mkt.ru19@gmail.com</a></p>
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M12 13.065L.003 6h23.994L12 13.065zM12 15.935L.003 9V18a3 3 0 003 3h17.994a3 3 0 003-3V9L12 15.935z"/></svg><strong>Alternative:</strong> <a href="mailto:s1911035109@ru.ac.bd">s1911035109@ru.ac.bd</a></p>
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011-.24 11.72 11.72 0 003.68.59 1 1 0 011 1v3.61a1 1 0 01-.91 1A19 19 0 013 5.91 1 1 0 014 5h3.61a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1l-2.34 2.34z"/></svg><strong>Cell:</strong> <a href="tel:+8801772672143">+880 1772672143</a></p>
+          <p><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg><strong>Address:</strong> Dhaka, Bangladesh</p>
         </div>
       </div>
     </section>
 
     <footer class="wrap" aria-label="Footer">
-      <div class="muted">© <span id="year"></span> Md Ariful Islam • Built with HTML, CSS & JS • Hosted on GitHub Pages</div>
+      <div class="muted">© <span id="year"></span> <a href="https://aforarif.me" target="_blank" rel="noopener" style="color:inherit">aforarif.me</a> • Built with ❤️ GitHub • Design and Developed by — Mohammad Ariful Islam</div>
     </footer>
   </main>
   <script>
@@ -480,7 +477,7 @@
 
   // Active nav highlighting (scroll-driven, single active)
   const headerEl = document.querySelector('header');
-  const sectionIds = ['home','publications','projects','education','experience','leadership','skills','cv','contact'];
+  const sectionIds = ['home','publications','projects','education','experience','leadership','skills','contact'];
   const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const links = Array.from(document.querySelectorAll('nav a'));
 
