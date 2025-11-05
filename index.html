@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Md Ariful Islam — Academic Portfolio</title>
+  <meta name="description" content="Academic portfolio of Md Ariful Islam (Arif): research, publications, projects, CV, and contact." />
+  <meta name="author" content="Md Ariful Islam" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0d12;
+      --card: #11141a;
+      --text: #e8ecf2;
+      --muted: #9aa4b2;
+      --brand: #4ea1ff;
+      --accent: #7af0c3;
+      --ring: rgba(78,161,255,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --gap: 20px;
+      --maxw: 1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto; color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, #0e1320 0%, var(--bg) 60%), linear-gradient(180deg, #0a0d14 0%, #0a0c12 100%);
+      line-height:1.6;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:28px 18px 80px}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(8px); background:rgba(11,13,18,.55); border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex; align-items:center; justify-content:space-between; max-width:var(--maxw); margin:0 auto; padding:12px 18px}
+    .brand{display:flex; align-items:center; gap:14px}
+    .avatar{width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--accent)); box-shadow:inset 0 0 0 3px rgba(0,0,0,.35)}
+    .brand h1{font-size:18px; margin:0; letter-spacing:.2px}
+    nav ul{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
+    nav a{display:inline-block; padding:8px 12px; border-radius:10px}
+    nav a:hover, nav a:focus{outline:none; background:rgba(255,255,255,.06)}
+    .actions{display:flex; align-items:center; gap:10px}
+    .btn{border:1px solid rgba(255,255,255,.12); padding:8px 12px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03)); box-shadow:var(--shadow); color:var(--text)}
+    .btn:hover{border-color:rgba(255,255,255,.18)}
+
+    /* Hero */
+    .hero{display:grid; gap:24px; grid-template-columns:1.2fr .8fr; align-items:center; margin-top:28px}
+    .hero .card{padding:26px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)}
+    .title{font-size:34px; line-height:1.2; margin:0 0 10px}
+    .subtitle{color:var(--muted); margin:0 0 16px}
+    .badges{display:flex; flex-wrap:wrap; gap:10px}
+    .badge{font-size:12px; border:1px solid rgba(255,255,255,.12); padding:6px 10px; border-radius:100px; background:rgba(255,255,255,.04)}
+
+    /* Grid sections */
+    .grid{display:grid; gap:var(--gap)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+
+    .card{padding:18px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08)}
+    .card h3{margin:0 0 10px; font-size:18px}
+    .muted{color:var(--muted)}
+
+    .list{display:grid; gap:12px}
+    .item{padding:12px; border:1px solid rgba(255,255,255,.06); border-radius:14px}
+    .kpis{display:flex; gap:20px; flex-wrap:wrap}
+    .kpi{min-width:120px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.06)}
+    .kpi .v{font-size:22px; font-weight:700}
+
+    /* Footer */
+    footer{margin-top:50px; padding:16px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header aria-label="Main header">
+    <div class="nav">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true"></div>
+        <h1>Md Ariful Islam</h1>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#teaching">Teaching</a></li>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <a class="btn" href="https://github.com/aforarif" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home" class="wrap">
+    <!-- Hero -->
+    <section class="hero" aria-label="Intro section">
+      <div class="card">
+        <h2 class="title">Prospective MSc (Marketing & Business Analytics)</h2>
+        <p class="subtitle">Research interests: Digital Marketing • Strategy • Innovation • Consumer Behavior</p>
+        <div class="badges" role="list">
+          <span class="badge" role="listitem">Dhaka, Bangladesh</span>
+          <span class="badge" role="listitem">Open to supervision (Fall 2026)</span>
+          <span class="badge" role="listitem">Email: <a href="mailto:your@email">your@email</a></span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="kpis" aria-label="Quick metrics">
+          <div class="kpi" aria-live="polite"><div class="v" id="kpi-pubs">0</div><div class="muted">Publications / WPs</div></div>
+          <div class="kpi"><div class="v" id="kpi-projects">0</div><div class="muted">Projects</div></div>
+          <div class="kpi"><div class="v" id="kpi-talks">0</div><div class="muted">Talks</div></div>
+        </div>
+        <p class="muted" style="margin-top:8px">Numbers update automatically from the data objects below — just edit the arrays, no HTML changes needed.</p>
+      </div>
+    </section>
+
+    <!-- Research -->
+    <section id="research" class="grid cols-2" style="margin-top:28px" aria-label="Research section">
+      <article class="card">
+        <h3>Research Interests</h3>
+        <ul class="muted">
+          <li>Digital Marketing & Platform Strategy</li>
+          <li>Data‑driven Marketing Analytics (SMEs, Emerging Markets)</li>
+          <li>Innovation & Consumer Behavior</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Current/Planned Work</h3>
+        <ul class="muted">
+          <li>Measuring ad effectiveness for SMEs using platform‑level data.</li>
+          <li>Social influence in low‑data purchase contexts.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" class="card" style="margin-top:20px" aria-label="Publications section">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap">
+        <h3 style="margin:0">Publications & Working Papers</h3>
+        <div style="display:flex; gap:10px; align-items:center">
+          <input id="pub-search" type="search" placeholder="Search title, venue, year…" aria-label="Search publications" style="padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text); min-width:220px">
+          <select id="pub-filter" aria-label="Filter by type" style="padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)">
+            <option value="all">All</option>
+            <option value="publication">Publication</option>
+            <option value="working-paper">Working Paper</option>
+            <option value="preprint">Preprint</option>
+          </select>
+        </div>
+      </div>
+      <div id="pub-list" class="list" style="margin-top:14px"></div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="card" style="margin-top:20px" aria-label="Projects section">
+      <h3>Selected Projects</h3>
+      <div id="proj-list" class="grid cols-3"></div>
+    </section>
+
+    <!-- Teaching -->
+    <section id="teaching" class="card" style="margin-top:20px" aria-label="Teaching section">
+      <h3>Teaching & Mentoring</h3>
+      <ul id="teach-list" class="list"></ul>
+    </section>
+
+    <!-- CV -->
+    <section id="cv" class="card" style="margin-top:20px" aria-label="CV section">
+      <h3>Curriculum Vitae</h3>
+      <p class="muted">Add your PDF as <code>/assets/cv/cv.pdf</code> in the repository and update the link below.</p>
+      <a class="btn" href="assets/cv/cv.pdf" target="_blank" rel="noopener">Download CV</a>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="card" style="margin-top:20px" aria-label="Contact section">
+      <h3>Contact</h3>
+      <p>Email: <a href="mailto:your@email">your@email</a>
+        &nbsp;|&nbsp; GitHub: <a href="https://github.com/aforarif" target="_blank" rel="noopener">@aforarif</a>
+        &nbsp;|&nbsp; LinkedIn: <a href="#">Add your link</a>
+      </p>
+      <form action="https://formspree.io/f/yourformid" method="POST" style="display:grid; gap:12px; max-width:600px">
+        <label>Name<input type="text" name="name" required style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)"></label>
+        <label>Email<input type="email" name="email" required style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)"></label>
+        <label>Message<textarea name="message" rows="5" required style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)"></textarea></label>
+        <button class="btn" type="submit">Send</button>
+      </form>
+    </section>
+
+    <footer class="wrap" aria-label="Footer">
+      <div class="muted">© <span id="year"></span> Md Ariful Islam • Built with HTML, CSS & JS • Hosted on GitHub Pages</div>
+    </footer>
+  </main>
+
+  <script>
+    // ======== EDIT YOUR DATA BELOW (no HTML changes needed) ========
+    const DATA = {
+      pubs: [
+        {type:'working-paper', year:2025, title:'Measuring SME Ad Effectiveness in Emerging Markets', venue:'Working paper', authors:'Md Ariful Islam', link:'#', pdf:'#'},
+        {type:'preprint', year:2024, title:'Social Influence in Low-Data Purchase Contexts', venue:'Preprint', authors:'Md Ariful Islam', link:'#', pdf:'#'}
+      ],
+      projects: [
+        {title:'Analytics Dashboard for SME Marketing', desc:'KPIs for campaign performance across channels.', link:'#'},
+        {title:'Consumer Review Mining', desc:'NLP pipeline to extract sentiment and themes.', link:'#'},
+        {title:'A/B Testing Toolkit', desc:'Lightweight JS toolkit for simple site experiments.', link:'#'}
+      ],
+      teaching: [
+        {role:'Mentor', course:'Undergrad marketing case prep', year:'2024'},
+        {role:'Workshop', course:'Intro to Data-Driven Marketing', year:'2025'}
+      ]
+    };
+
+    // Render helpers
+    const $ = sel => document.querySelector(sel);
+    const el = (tag, attrs={}, children=[]) => { const n = document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>{ if(k==='class') n.className=v; else if(k==='html') n.innerHTML=v; else n.setAttribute(k,v);}); children.forEach(c=>n.appendChild(c)); return n; };
+
+    // Publication render + search/filter
+    const pubList = $('#pub-list');
+    const renderPubs = (query='', type='all') => {
+      pubList.innerHTML = '';
+      const q = query.trim().toLowerCase();
+      const items = DATA.pubs
+        .slice().sort((a,b)=>b.year - a.year)
+        .filter(p => (type==='all' || p.type===type))
+        .filter(p => !q || [p.title,p.venue,String(p.year),p.authors].join(' ').toLowerCase().includes(q));
+      $('#kpi-pubs').textContent = items.length;
+      items.forEach(p => {
+        const t = el('div', {class:'item'});
+        t.append(
+          el('div', {html:`<strong>${p.title}</strong> <span class="muted">(${p.year})</span>`}),
+          el('div', {class:'muted', html:`${p.authors} — ${p.venue}`}),
+        );
+        const row = el('div', {style:'margin-top:8px; display:flex; gap:10px; flex-wrap:wrap'});
+        if(p.pdf && p.pdf !== '#') row.append(el('a', {href:p.pdf, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('PDF')]));
+        if(p.link && p.link !== '#') row.append(el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('Link')]));
+        t.append(row);
+        pubList.append(t);
+      });
+    };
+
+    // Projects
+    const projList = $('#proj-list');
+    DATA.projects.forEach(p => {
+      const card = el('article', {class:'item'});
+      card.append(el('div', {html:`<strong>${p.title}</strong>`}), el('div', {class:'muted', html:p.desc}));
+      if(p.link && p.link !== '#') card.append(el('div', {style:'margin-top:8px'}, [el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('View')]) ]));
+      projList.append(card);
+    });
+    $('#kpi-projects').textContent = DATA.projects.length;
+
+    // Teaching
+    const teachList = $('#teach-list');
+    DATA.teaching.forEach(t => teachList.append(el('li', {class:'item', html:`${t.year} — <strong>${t.role}</strong>: ${t.course}`})));
+
+    // Search + filter hooks
+    const search = $('#pub-search');
+    const filter = $('#pub-filter');
+    const apply = () => renderPubs(search.value, filter.value);
+    ['input','change'].forEach(evt => { search.addEventListener(evt, apply); filter.addEventListener(evt, apply); });
+
+    // Initialize
+    renderPubs();
+    $('#kpi-talks').textContent = 0;
+    $('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
