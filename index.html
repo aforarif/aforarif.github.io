@@ -51,8 +51,9 @@
     header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(16px); background:rgba(10,13,18,.45); border-bottom:1px solid rgba(255,255,255,.08)}
     .nav{display:flex; align-items:center; justify-content:space-between; max-width:var(--maxw); margin:0 auto; padding:12px 18px}
     .brand{display:flex; align-items:center; gap:14px}
-    .avatar{width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--accent)); box-shadow:inset 0 0 0 3px rgba(0,0,0,.35)}
     .brand h1{font-size:18px; margin:0; letter-spacing:.2px}
+    .nav-toggle{display:none; align-items:center; justify-content:center; width:40px; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)}
+    nav{position:relative}
     nav ul{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
     nav a{display:inline-block; padding:8px 12px; border-radius:10px; transition:background .2s ease, color .2s ease}
     nav a.active{background:rgba(78,161,255,.18); color:#fff; box-shadow:0 0 0 2px var(--ring) inset}
@@ -61,6 +62,13 @@
     .btn{border:var(--glass-border); padding:10px 14px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); box-shadow:var(--shadow); color:var(--text); backdrop-filter:saturate(140%) blur(8px); transition:transform .15s ease, border-color .2s ease, background .2s ease}
     .btn:hover{border-color:rgba(255,255,255,.32); transform:translateY(-2px)}
     .btn:active{transform:translateY(0)}
+
+    /* Mobile nav */
+    @media (max-width: 900px){
+      .nav-toggle{display:inline-flex}
+      nav ul{display:none; position:absolute; right:0; top:52px; flex-direction:column; gap:8px; padding:10px; background:var(--card); border:var(--glass-border); border-radius:14px; width:min(90vw, 320px); box-shadow:var(--shadow)}
+      nav.open ul{display:flex}
+    }
 
     /* Hero */
     .hero{display:grid; gap:24px; grid-template-columns: 320px 1fr; align-items:stretch; margin-top:28px}
@@ -130,7 +138,8 @@
       <div class="brand">
         <h1>Md Ariful Islam</h1>
       </div>
-      <nav aria-label="Primary">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-controls="site-nav" aria-expanded="false">☰</button>
+      <nav id="site-nav" aria-label="Primary">
         <ul>
           <li><a href="#home">Home</a></li>
           <li><a href="#research">Research</a></li>
@@ -144,9 +153,9 @@
     </div>
   </header>
 
-  <main id="home" class="wrap">
+  <main class="wrap">
     <!-- Hero: Photo + Socials (left) | Info + KPIs (right) -->
-    <section class="hero" aria-label="Intro section">
+    <section id="home" class="hero" aria-label="Intro section">
       <!-- Left: Photo + socials -->
       <div class="card info-card reveal">
         <div class="pfp-wrap" aria-hidden="true">
@@ -238,7 +247,7 @@
     <!-- Contact -->
     <section id="contact" class="card reveal" style="margin-top:20px" aria-label="Contact section">
       <h3>Contact</h3>
-      <p>Email: <a href="mailto:arif.mkt.ru19@gmail.com">your@email</a>
+      <p>Email: <a href="mailto:arif.mkt.ru19@gmail.com">arif.mkt.ru19@gmail.com</a>
         &nbsp;|&nbsp; GitHub: <a href="https://github.com/aforarif" target="_blank" rel="noopener">@aforarif</a>
         &nbsp;|&nbsp; LinkedIn: <a href="https://www.linkedin.com/in/aisforarif/">Add your link</a>
       </p>
@@ -341,6 +350,7 @@
   document.querySelectorAll('.reveal, .item, .card').forEach(elm=> io.observe(elm));
 
   // Active nav highlighting
+  // Observe sections, including the hero with id="home"
   const sections = ['home','research','publications','projects','teaching','cv','contact']
     .map(id=> document.getElementById(id) || document.querySelector(`#${id}`));
   const links = Array.from(document.querySelectorAll('nav a'));
@@ -351,8 +361,25 @@
         links.forEach(a=> a.classList.toggle('active', a.getAttribute('href')==`#${id}`));
       }
     });
-  }, {threshold:0.5});
+  }, {rootMargin: '-80px 0px -55% 0px', threshold: 0.3});
   sections.filter(Boolean).forEach(sec=> sectionObserver.observe(sec));
+
+  // Mobile nav toggle
+  const nav = document.getElementById('site-nav');
+  const toggle = document.querySelector('.nav-toggle');
+  if(toggle && nav){
+    toggle.addEventListener('click', ()=>{
+      const isOpen = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    // Close on link click (mobile)
+    links.forEach(a=> a.addEventListener('click', ()=>{
+      if(nav.classList.contains('open')){
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }));
+  }
 </script>
 </body>
 </html>
