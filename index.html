@@ -12,61 +12,103 @@
   <style>
     :root{
       --bg: #0b0d12;
-      --card: #11141a;
+      --bg2: #0a0f1d;
+      --card: rgba(17,20,26,.55);
       --text: #e8ecf2;
       --muted: #9aa4b2;
       --brand: #4ea1ff;
       --accent: #7af0c3;
       --ring: rgba(78,161,255,.35);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 18px;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 22px;
       --gap: 20px;
       --maxw: 1100px;
+      --glass-border: 1px solid rgba(255,255,255,.22);
+      --glass-inner: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -1px 0 rgba(255,255,255,.06);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto; color:var(--text); background:radial-gradient(1200px 600px at 10% -10%, #0e1320 0%, var(--bg) 60%), linear-gradient(180deg, #0a0d14 0%, #0a0c12 100%);
-      line-height:1.6;
+    html,body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto; color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, #13203a 0%, var(--bg2) 40%, var(--bg) 70%),
+        linear-gradient(180deg, #0a0d14 0%, #0a0c12 100%);
+      line-height:1.6; position:relative; overflow-x:hidden;
     }
     a{color:var(--brand); text-decoration:none}
     a:hover{text-decoration:underline}
     .wrap{max-width:var(--maxw); margin:0 auto; padding:28px 18px 80px}
 
+    /* Frosted blobs */
+    body:before, body:after{content:""; position:fixed; width:620px; height:620px; border-radius:50%; filter:blur(80px); opacity:.35; pointer-events:none; z-index:0}
+    body:before{background:radial-gradient(circle at 30% 30%, rgba(78,161,255,.8), transparent 60%); top:-140px; left:-120px}
+    body:after{background:radial-gradient(circle at 70% 70%, rgba(122,240,195,.7), transparent 60%); bottom:-160px; right:-140px}
+
+    /* Smooth scrolling + anchor offset */
+    html{scroll-behavior:smooth}
+    section{scroll-margin-top:90px}
+
     /* Header */
-    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(160%) blur(8px); background:rgba(11,13,18,.55); border-bottom:1px solid rgba(255,255,255,.06)}
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(16px); background:rgba(10,13,18,.45); border-bottom:1px solid rgba(255,255,255,.08)}
     .nav{display:flex; align-items:center; justify-content:space-between; max-width:var(--maxw); margin:0 auto; padding:12px 18px}
     .brand{display:flex; align-items:center; gap:14px}
     .avatar{width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--accent)); box-shadow:inset 0 0 0 3px rgba(0,0,0,.35)}
     .brand h1{font-size:18px; margin:0; letter-spacing:.2px}
     nav ul{display:flex; gap:14px; list-style:none; margin:0; padding:0; flex-wrap:wrap}
-    nav a{display:inline-block; padding:8px 12px; border-radius:10px}
+    nav a{display:inline-block; padding:8px 12px; border-radius:10px; transition:background .2s ease, color .2s ease}
+    nav a.active{background:rgba(78,161,255,.18); color:#fff; box-shadow:0 0 0 2px var(--ring) inset}
     nav a:hover, nav a:focus{outline:none; background:rgba(255,255,255,.06)}
     .actions{display:flex; align-items:center; gap:10px}
-    .btn{border:1px solid rgba(255,255,255,.12); padding:8px 12px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03)); box-shadow:var(--shadow); color:var(--text)}
-    .btn:hover{border-color:rgba(255,255,255,.18)}
+    .btn{border:var(--glass-border); padding:10px 14px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); box-shadow:var(--shadow); color:var(--text); backdrop-filter:saturate(140%) blur(8px); transition:transform .15s ease, border-color .2s ease, background .2s ease}
+    .btn:hover{border-color:rgba(255,255,255,.32); transform:translateY(-2px)}
+    .btn:active{transform:translateY(0)}
 
     /* Hero */
-    .hero{display:grid; gap:24px; grid-template-columns:1.2fr .8fr; align-items:center; margin-top:28px}
-    .hero .card{padding:26px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow)}
-    .title{font-size:34px; line-height:1.2; margin:0 0 10px}
-    .subtitle{color:var(--muted); margin:0 0 16px}
-    .badges{display:flex; flex-wrap:wrap; gap:10px}
-    .badge{font-size:12px; border:1px solid rgba(255,255,255,.12); padding:6px 10px; border-radius:100px; background:rgba(255,255,255,.04)}
+    .hero{display:grid; gap:24px; grid-template-columns: 320px 1fr; align-items:stretch; margin-top:28px}
+    .card.info-card{padding:20px; display:flex; flex-direction:column; align-items:center}
+    .pfp-wrap{position:relative; width:100%; max-width:280px; aspect-ratio:1/1; border-radius:18px; padding:10px; background:linear-gradient(135deg, rgba(78,161,255,.55), rgba(122,240,195,.55)); box-shadow:0 8px 40px rgba(0,0,0,.35)}
+    .pfp-wrap:after{content:""; position:absolute; inset:-2px; border-radius:inherit; background:linear-gradient(135deg, rgba(255,255,255,.5), rgba(255,255,255,0)); opacity:.2; pointer-events:none}
+    .pfp-inner{width:100%; height:100%; border-radius:14px; background:rgba(0,0,0,.35); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:var(--shadow); -webkit-backdrop-filter: blur(6px) saturate(150%); backdrop-filter: blur(6px) saturate(150%)}
+    .pfp-inner img{width:100%; height:100%; object-fit:cover; display:block; transform:scale(1); transition:transform .25s ease}
+    .pfp-wrap:hover .pfp-inner img{transform:scale(1.03)}
+    .socials{display:flex; gap:10px; margin-top:14px}
+    .icon-btn{display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); box-shadow:var(--shadow); transition:transform .15s ease, background .2s ease, border-color .2s ease}
+    .icon-btn:hover{background:rgba(255,255,255,.07); transform:translateY(-1px)}
+    .icon-btn.linkedin:hover{border-color:#0A66C2}
+    .icon-btn.whatsapp:hover{border-color:#25D366}
+    .icon-btn.email:hover{border-color:#cbd5e1}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(12px); transition:opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1)}
+    .reveal.visible{opacity:1; transform:none}
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; animation:none !important}
+    }
+
+    /* Badges + pub cards */
+    .badge{display:inline-block; font-size:12px; border:1px solid rgba(255,255,255,.12); padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.04); margin-right:8px}
+    .badge.type{border-color:rgba(78,161,255,.35)}
+    .badge.venue{border-color:rgba(255,255,255,.15)}
+    .badge.year{border-color:rgba(122,240,195,.35)}
+    .pub-card{padding:14px; border:1px solid rgba(255,255,255,.08); border-radius:14px}
+    .pub-meta{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 8px}
+    .pub-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
 
     /* Grid sections */
     .grid{display:grid; gap:var(--gap)}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .grid.cols-2{grid-template-columns:repeat(2,1fr)}
 
-    .card{padding:18px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08)}
+    .card{padding:18px; border-radius:var(--radius); background:var(--card); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border:var(--glass-border); box-shadow:var(--shadow); position:relative; transition:transform .18s ease, border-color .2s ease}
+    .card:before{content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:var(--glass-inner); pointer-events:none}
+    .card:hover{transform:translateY(-3px);}
     .card h3{margin:0 0 10px; font-size:18px}
     .muted{color:var(--muted)}
 
     .list{display:grid; gap:12px}
     .item{padding:12px; border:1px solid rgba(255,255,255,.06); border-radius:14px}
     .kpis{display:flex; gap:20px; flex-wrap:wrap}
-    .kpi{min-width:120px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.06)}
+    .kpi{min-width:120px; padding:12px 14px; border-radius:14px; border:var(--glass-border); background:rgba(255,255,255,.03); backdrop-filter: blur(6px) saturate(130%); transition:transform .15s ease, border-color .2s ease}
+    .kpi:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.3)}
     .kpi .v{font-size:22px; font-weight:700}
 
     /* Footer */
@@ -75,8 +117,10 @@
     /* Responsive */
     @media (max-width: 900px){
       .hero{grid-template-columns:1fr}
+      .pfp-wrap{max-width:340px}
       .grid.cols-3{grid-template-columns:1fr}
       .grid.cols-2{grid-template-columns:1fr}
+      .kpis{gap:12px}
     }
   </style>
 </head>
@@ -84,7 +128,6 @@
   <header aria-label="Main header">
     <div class="nav">
       <div class="brand">
-        <div class="avatar" aria-hidden="true"></div>
         <h1>Md Ariful Islam</h1>
       </div>
       <nav aria-label="Primary">
@@ -98,33 +141,48 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <div class="actions">
-        <a class="btn" href="https://github.com/aforarif" target="_blank" rel="noopener">GitHub</a>
-      </div>
     </div>
   </header>
 
   <main id="home" class="wrap">
-    <!-- Hero -->
-    <section class="hero" aria-label="Intro section" style="grid-template-columns: 300px 1fr;">
-      <div class="card" style="text-align:center;">
-        <img src="assets/img/arif.png" alt="Md Ariful Islam" style="width:100%; border-radius:12px; border:3px solid var(--brand); box-shadow:var(--shadow); object-fit:cover;" />
-        <div style="display:flex; justify-content:center; gap:12px; margin-top:14px;">
-          <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn" style="font-size:20px;">🔗</a>
-          <a href="#" target="_blank" rel="noopener" aria-label="WhatsApp" style="font-size:20px;">💬</a>
-          <a href="mailto:arif.mkt.ru19@gmail.com" aria-label="Email" style="font-size:20px;">✉️</a>
+    <!-- Hero: Photo + Socials (left) | Info + KPIs (right) -->
+    <section class="hero" aria-label="Intro section">
+      <!-- Left: Photo + socials -->
+      <div class="card info-card reveal">
+        <div class="pfp-wrap" aria-hidden="true">
+          <div class="pfp-inner">
+            <img src="assets/img/arif.png" alt="Md Ariful Islam portrait" />
+          </div>
+        </div>
+        <div class="socials" aria-label="Social links">
+          <a class="icon-btn linkedin" href="#" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 11.268h-3v-5.604c0-1.337-.027-3.059-1.865-3.059-1.867 0-2.154 1.459-2.154 2.968v5.695h-3v-10h2.881v1.367h.041c.401-.761 1.381-1.563 2.842-1.563 3.039 0 3.6 2.002 3.6 4.605v5.591z"/></svg>
+          </a>
+          <a class="icon-btn whatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M19.11 17.35c-.26-.13-1.53-.76-1.77-.85-.24-.09-.42-.13-.6.13-.18.26-.69.85-.85 1.03-.16.18-.31.2-.57.07-.26-.13-1.08-.4-2.06-1.27-.76-.68-1.27-1.52-1.42-1.78-.15-.26-.02-.4.11-.53.11-.11.26-.29.39-.44.13-.15.18-.26.26-.44.09-.18.04-.33-.02-.46-.06-.13-.6-1.45-.82-1.98-.22-.53-.44-.46-.6-.46-.15 0-.33 0-.5 0-.18 0-.46.07-.7.33-.24.26-.92.9-.92 2.2 0 1.3.95 2.56 1.08 2.74.13.18 1.86 2.85 4.51 3.99.63.27 1.13.43 1.52.55.64.2 1.23.17 1.7.1.52-.08 1.53-.62 1.74-1.22.22-.6.22-1.11.15-1.22-.06-.11-.24-.18-.5-.31z"/><path d="M27.27 4.73C24.37 1.83 20.35.33 16.17.33 7.84.33 1.08 7.09 1.08 15.42c0 2.67.69 5.28 2.01 7.58L1 31l8.2-2.15c2.24 1.23 4.77 1.88 7.36 1.88h.01c8.33 0 15.09-6.76 15.09-15.09 0-4.03-1.57-7.82-4.39-10.63zM16.58 28.4h-.01c-2.29 0-4.53-.62-6.49-1.79l-.46-.27-4.86 1.27 1.3-4.73-.3-.48c-1.23-1.99-1.88-4.29-1.88-6.68 0-7.01 5.7-12.71 12.71-12.71 3.39 0 6.58 1.32 8.98 3.72 2.39 2.39 3.71 5.59 3.71 8.98 0 7.02-5.7 12.71-12.71 12.71z"/></svg>
+          </a>
+          <a class="icon-btn email" href="mailto:your@email" aria-label="Email" title="Email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 13.065L.003 6h23.994L12 13.065zM12 15.935L.003 9V18a3 3 0 003 3h17.994a3 3 0 003-3V9L12 15.935z"/></svg>
+          </a>
         </div>
       </div>
-      <div class="card">
+
+      <!-- Right: Headline + about + KPIs -->
+      <div class="card reveal">
         <h2 class="title">Prospective MSc (Marketing & Business Analytics)</h2>
         <p class="subtitle">Aspiring researcher in Digital Marketing, Strategy, Innovation & Consumer Behavior.</p>
-        <p class="muted">I am Md Ariful Islam from Dhaka, Bangladesh. I aim to pursue graduate studies focused on leveraging data to enhance marketing decision‑making and drive business innovation within emerging markets.</p>
+        <p class="muted">I am Md Ariful Islam from Dhaka, Bangladesh. I aim to pursue graduate studies focused on leveraging data to enhance marketing decision-making and drive business innovation within emerging markets.</p>
+        <div class="kpis" aria-label="Quick metrics" style="margin-top:12px">
+          <div class="kpi"><div class="v" id="kpi-pubs">0</div><div class="muted">Publications / WPs</div></div>
+          <div class="kpi"><div class="v" id="kpi-projects">0</div><div class="muted">Projects</div></div>
+          <div class="kpi"><div class="v" id="kpi-talks">0</div><div class="muted">Talks</div></div>
+        </div>
       </div>
     </section>
 
     <!-- Research -->
     <section id="research" class="grid cols-2" style="margin-top:28px" aria-label="Research section">
-      <article class="card">
+      <article class="card reveal">
         <h3>Research Interests</h3>
         <ul class="muted">
           <li>Digital Marketing & Platform Strategy</li>
@@ -132,7 +190,7 @@
           <li>Innovation & Consumer Behavior</li>
         </ul>
       </article>
-      <article class="card">
+      <article class="card reveal">
         <h3>Current/Planned Work</h3>
         <ul class="muted">
           <li>Measuring ad effectiveness for SMEs using platform‑level data.</li>
@@ -142,7 +200,7 @@
     </section>
 
     <!-- Publications -->
-    <section id="publications" class="card" style="margin-top:20px" aria-label="Publications section">
+    <section id="publications" class="card reveal" style="margin-top:20px" aria-label="Publications section">
       <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap">
         <h3 style="margin:0">Publications & Working Papers</h3>
         <div style="display:flex; gap:10px; align-items:center">
@@ -159,26 +217,26 @@
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="card" style="margin-top:20px" aria-label="Projects section">
+    <section id="projects" class="card reveal" style="margin-top:20px" aria-label="Projects section">
       <h3>Selected Projects</h3>
       <div id="proj-list" class="grid cols-3"></div>
     </section>
 
     <!-- Teaching -->
-    <section id="teaching" class="card" style="margin-top:20px" aria-label="Teaching section">
+    <section id="teaching" class="card reveal" style="margin-top:20px" aria-label="Teaching section">
       <h3>Teaching & Mentoring</h3>
       <ul id="teach-list" class="list"></ul>
     </section>
 
     <!-- CV -->
-    <section id="cv" class="card" style="margin-top:20px" aria-label="CV section">
+    <section id="cv" class="card reveal" style="margin-top:20px" aria-label="CV section">
       <h3>Curriculum Vitae</h3>
       <p class="muted">Add your PDF as <code>/assets/cv/cv.pdf</code> in the repository and update the link below.</p>
       <a class="btn" href="assets/cv/cv.pdf" target="_blank" rel="noopener">Download CV</a>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="card" style="margin-top:20px" aria-label="Contact section">
+    <section id="contact" class="card reveal" style="margin-top:20px" aria-label="Contact section">
       <h3>Contact</h3>
       <p>Email: <a href="mailto:your@email">your@email</a>
         &nbsp;|&nbsp; GitHub: <a href="https://github.com/aforarif" target="_blank" rel="noopener">@aforarif</a>
@@ -196,77 +254,105 @@
       <div class="muted">© <span id="year"></span> Md Ariful Islam • Built with HTML, CSS & JS • Hosted on GitHub Pages</div>
     </footer>
   </main>
-
   <script>
-    // ======== EDIT YOUR DATA BELOW (no HTML changes needed) ========
-    const DATA = {
-      pubs: [
-        {type:'working-paper', year:2025, title:'Measuring SME Ad Effectiveness in Emerging Markets', venue:'Working paper', authors:'Md Ariful Islam', link:'#', pdf:'#'},
-        {type:'preprint', year:2024, title:'Social Influence in Low-Data Purchase Contexts', venue:'Preprint', authors:'Md Ariful Islam', link:'#', pdf:'#'}
-      ],
-      projects: [
-        {title:'Analytics Dashboard for SME Marketing', desc:'KPIs for campaign performance across channels.', link:'#'},
-        {title:'Consumer Review Mining', desc:'NLP pipeline to extract sentiment and themes.', link:'#'},
-        {title:'A/B Testing Toolkit', desc:'Lightweight JS toolkit for simple site experiments.', link:'#'}
-      ],
-      teaching: [
-        {role:'Mentor', course:'Undergrad marketing case prep', year:'2024'},
-        {role:'Workshop', course:'Intro to Data-Driven Marketing', year:'2025'}
-      ]
-    };
+  // ======== EDIT YOUR DATA BELOW (no HTML changes needed) ========
+  const DATA = {
+    pubs: [
+      {type:'working-paper', year:2025, title:'Measuring SME Ad Effectiveness in Emerging Markets', venue:'Working paper', authors:'Md Ariful Islam', link:'#', pdf:'#'},
+      {type:'preprint', year:2024, title:'Social Influence in Low-Data Purchase Contexts', venue:'Preprint', authors:'Md Ariful Islam', link:'#', pdf:'#'}
+    ],
+    projects: [
+      {title:'Analytics Dashboard for SME Marketing', desc:'KPIs for campaign performance across channels.', link:'#'},
+      {title:'Consumer Review Mining', desc:'NLP pipeline to extract sentiment and themes.', link:'#'},
+      {title:'A/B Testing Toolkit', desc:'Lightweight JS toolkit for simple site experiments.', link:'#'}
+    ],
+    teaching: [
+      {role:'Mentor', course:'Undergrad marketing case prep', year:'2024'},
+      {role:'Workshop', course:'Intro to Data-Driven Marketing', year:'2025'}
+    ]
+  };
 
-    // Render helpers
-    const $ = sel => document.querySelector(sel);
-    const el = (tag, attrs={}, children=[]) => { const n = document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>{ if(k==='class') n.className=v; else if(k==='html') n.innerHTML=v; else n.setAttribute(k,v);}); children.forEach(c=>n.appendChild(c)); return n; };
+  // Helpers
+  const $ = sel => document.querySelector(sel);
+  const el = (tag, attrs={}, children=[]) => { const n = document.createElement(tag); Object.entries(attrs).forEach(([k,v])=>{ if(k==='class') n.className=v; else if(k==='html') n.innerHTML=v; else n.setAttribute(k,v);}); children.forEach(c=>n.appendChild(c)); return n; };
 
-    // Publication render + search/filter
-    const pubList = $('#pub-list');
-    const renderPubs = (query='', type='all') => {
-      pubList.innerHTML = '';
-      const q = query.trim().toLowerCase();
-      const items = DATA.pubs
-        .slice().sort((a,b)=>b.year - a.year)
-        .filter(p => (type==='all' || p.type===type))
-        .filter(p => !q || [p.title,p.venue,String(p.year),p.authors].join(' ').toLowerCase().includes(q));
-      $('#kpi-pubs').textContent = items.length;
-      items.forEach(p => {
-        const t = el('div', {class:'item'});
-        t.append(
-          el('div', {html:`<strong>${p.title}</strong> <span class="muted">(${p.year})</span>`}),
-          el('div', {class:'muted', html:`${p.authors} — ${p.venue}`}),
-        );
-        const row = el('div', {style:'margin-top:8px; display:flex; gap:10px; flex-wrap:wrap'});
-        if(p.pdf && p.pdf !== '#') row.append(el('a', {href:p.pdf, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('PDF')]));
-        if(p.link && p.link !== '#') row.append(el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('Link')]));
-        t.append(row);
-        pubList.append(t);
-      });
-    };
+  // Publications render + search/filter
+  const pubList = $('#pub-list');
+  function renderPubs(query='', type='all'){
+    pubList.innerHTML = '';
+    const q = query.trim().toLowerCase();
+    const items = DATA.pubs
+      .slice().sort((a,b)=>b.year - a.year)
+      .filter(p => (type==='all' || p.type===type))
+      .filter(p => !q || [p.title,p.venue,String(p.year),p.authors].join(' ').toLowerCase().includes(q));
 
-    // Projects
-    const projList = $('#proj-list');
-    DATA.projects.forEach(p => {
-      const card = el('article', {class:'item'});
-      card.append(el('div', {html:`<strong>${p.title}</strong>`}), el('div', {class:'muted', html:p.desc}));
-      if(p.link && p.link !== '#') card.append(el('div', {style:'margin-top:8px'}, [el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('View')]) ]));
-      projList.append(card);
+    items.forEach(p => {
+      const card = el('div', {class:'pub-card reveal'});
+      const title = el('div', {html:`<strong>${p.title}</strong> <span class="muted">(${p.year})</span>`});
+      const meta = el('div', {class:'pub-meta'});
+      const typeLbl = (p.type||'').split('-').map(s=>s.charAt(0).toUpperCase()+s.slice(1)).join(' ');
+      meta.append(
+        el('span', {class:'badge type', html:typeLbl||'Item'}),
+        el('span', {class:'badge venue', html:p.venue||'Venue'}),
+        el('span', {class:'badge year', html:String(p.year||'')})
+      );
+      const authors = el('div', {class:'muted', html:`${p.authors||''}`});
+      const actions = el('div', {class:'pub-actions'});
+      if(p.pdf && p.pdf !== '#') actions.append(el('a', {href:p.pdf, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('PDF')]));
+      if(p.link && p.link !== '#') actions.append(el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('Link')]));
+      card.append(title, meta, authors, actions);
+      pubList.append(card);
     });
-    $('#kpi-projects').textContent = DATA.projects.length;
+  }
 
-    // Teaching
-    const teachList = $('#teach-list');
-    DATA.teaching.forEach(t => teachList.append(el('li', {class:'item', html:`${t.year} — <strong>${t.role}</strong>: ${t.course}`})));
+  // Projects
+  const projList = $('#proj-list');
+  DATA.projects.forEach(p => {
+    const card = el('article', {class:'item reveal'});
+    card.append(el('div', {html:`<strong>${p.title}</strong>`}), el('div', {class:'muted', html:p.desc}));
+    if(p.link && p.link !== '#') card.append(el('div', {style:'margin-top:8px'}, [el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('View')]) ]));
+    projList.append(card);
+  });
 
-    // Search + filter hooks
-    const search = $('#pub-search');
-    const filter = $('#pub-filter');
-    const apply = () => renderPubs(search.value, filter.value);
-    ['input','change'].forEach(evt => { search.addEventListener(evt, apply); filter.addEventListener(evt, apply); });
+  // Teaching
+  const teachList = $('#teach-list');
+  DATA.teaching.forEach(t => teachList.append(el('li', {class:'item reveal', html:`${t.year} — <strong>${t.role}</strong>: ${t.course}`})));
 
-    // Initialize
-    renderPubs();
-    $('#kpi-talks').textContent = 0;
-    $('#year').textContent = new Date().getFullYear();
-  </script>
+  // Search + filter hooks
+  const search = $('#pub-search');
+  const filter = $('#pub-filter');
+  const apply = () => renderPubs(search.value, filter.value);
+  ['input','change'].forEach(evt => { search.addEventListener(evt, apply); filter.addEventListener(evt, apply); });
+
+  // Initialize
+  renderPubs();
+  const totalPubs = DATA.pubs.length;
+  const totalProjects = DATA.projects.length;
+  const totalTalks = 0;
+  const kp1 = document.getElementById('kpi-pubs'); if(kp1) kp1.textContent = totalPubs;
+  const kp2 = document.getElementById('kpi-projects'); if(kp2) kp2.textContent = totalProjects;
+  const kp3 = document.getElementById('kpi-talks'); if(kp3) kp3.textContent = totalTalks;
+  const yr = document.getElementById('year'); if(yr) yr.textContent = new Date().getFullYear();
+
+  // Reveal-on-scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal, .item, .card').forEach(elm=> io.observe(elm));
+
+  // Active nav highlighting
+  const sections = ['home','research','publications','projects','teaching','cv','contact']
+    .map(id=> document.getElementById(id) || document.querySelector(`#${id}`));
+  const links = Array.from(document.querySelectorAll('nav a'));
+  const sectionObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        links.forEach(a=> a.classList.toggle('active', a.getAttribute('href')==`#${id}`));
+      }
+    });
+  }, {threshold:0.5});
+  sections.filter(Boolean).forEach(sec=> sectionObserver.observe(sec));
+</script>
 </body>
 </html>
