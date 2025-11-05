@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,6 +25,7 @@
       --maxw: 1100px;
       --glass-border: 1px solid rgba(255,255,255,.22);
       --glass-inner: inset 0 1px 0 rgba(255,255,255,.25), inset 0 -1px 0 rgba(255,255,255,.06);
+      --header-h: 64px;
     }
     *{box-sizing:border-box}
     html,body{
@@ -44,11 +45,11 @@
     body:after{background:radial-gradient(circle at 70% 70%, rgba(122,240,195,.7), transparent 60%); bottom:-160px; right:-140px}
 
     /* Smooth scrolling + anchor offset */
-    html{scroll-behavior:smooth}
-    section{scroll-margin-top:90px}
+    html{scroll-behavior:smooth; scroll-padding-top: calc(var(--header-h) + 12px)}
+    body{padding-top:calc(var(--header-h) + 8px)}
 
     /* Header */
-    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(16px); background:rgba(10,13,18,.45); border-bottom:1px solid rgba(255,255,255,.08)}
+    header{position:fixed; top:0; left:0; right:0; z-index:100; backdrop-filter:saturate(180%) blur(16px); background:rgba(10,13,18,.45); border-bottom:1px solid rgba(255,255,255,.08)}
     .nav{display:flex; align-items:center; justify-content:space-between; max-width:var(--maxw); margin:0 auto; padding:12px 18px}
     .brand{display:flex; align-items:center; gap:14px}
     .brand h1{font-size:18px; margin:0; letter-spacing:.2px}
@@ -88,8 +89,11 @@
     /* Reveal on scroll */
     .reveal{opacity:0; transform:translateY(12px); transition:opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1)}
     .reveal.visible{opacity:1; transform:none}
+    /* Fallback if JS fails */
+    .no-js .reveal{opacity:1; transform:none}
     @media (prefers-reduced-motion: reduce){
       *{transition:none !important; animation:none !important}
+    
     }
 
     /* Badges + pub cards */
@@ -106,6 +110,15 @@
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .grid.cols-2{grid-template-columns:repeat(2,1fr)}
 
+    /* Info rows with side photo */
+    .info-row{display:grid; grid-template-columns:120px 1fr; gap:16px; align-items:start}
+    .side-photo{width:100%; max-width:120px}
+    .side-photo img{width:100%; height:100px; object-fit:cover; border-radius:12px; border:var(--glass-border); background:rgba(255,255,255,.04)}
+    @media (max-width: 900px){
+      .info-row{grid-template-columns:80px 1fr}
+      .side-photo img{height:80px}
+    }
+
     .card{padding:18px; border-radius:var(--radius); background:var(--card); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border:var(--glass-border); box-shadow:var(--shadow); position:relative; transition:transform .18s ease, border-color .2s ease}
     .card:before{content:""; position:absolute; inset:0; border-radius:inherit; box-shadow:var(--glass-inner); pointer-events:none}
     .card:hover{transform:translateY(-3px);}
@@ -121,6 +134,28 @@
 
     /* Footer */
     footer{margin-top:50px; padding:16px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Contact card layout */
+    .contact-grid{display:grid; grid-template-columns:1fr 0.9fr; gap:28px; align-items:start}
+    .contact-form{display:grid; gap:12px; width:100%}
+    .contact-info{width:100%; border-left:1px solid rgba(255,255,255,.08); padding-left:20px; margin-left:4px}
+    .contact-info p{margin:0 0 10px}
+    .contact-info strong{display:inline-block; min-width:92px}
+
+    /* Inputs */
+    .field{display:grid; gap:6px}
+    .label{font-size:14px; color:var(--muted)}
+    .input, .textarea{width:100%; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); color:var(--text); box-shadow:var(--shadow); backdrop-filter:saturate(140%) blur(8px)}
+    .textarea{min-height:140px; resize:vertical}
+    .input:focus, .textarea:focus{outline:none; border-color:rgba(78,161,255,.45); box-shadow:0 0 0 3px rgba(78,161,255,.15)}
+
+    .contact-actions{display:flex; gap:10px; justify-content:flex-start}
+    .btn.primary{box-shadow:0 10px 30px rgba(78,161,255,.18)}
+
+    @media (max-width: 900px){
+      .contact-grid{grid-template-columns:1fr; gap:18px}
+      .contact-info{border-left:none; padding-left:0; margin-left:0}
+    }
 
     /* Responsive */
     @media (max-width: 900px){
@@ -142,10 +177,13 @@
       <nav id="site-nav" aria-label="Primary">
         <ul>
           <li><a href="#home">Home</a></li>
-          <li><a href="#research">Research</a></li>
+          
           <li><a href="#publications">Publications</a></li>
           <li><a href="#projects">Projects</a></li>
-          <li><a href="#teaching">Teaching</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+          <li><a href="#skills">Skills</a></li>
           <li><a href="#cv">CV</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -182,36 +220,28 @@
         <p class="subtitle">Aspiring researcher in Digital Marketing, Strategy, Innovation & Consumer Behavior.</p>
         <p class="muted">I am Md Ariful Islam from Dhaka, Bangladesh. I aim to pursue graduate studies focused on leveraging data to enhance marketing decision-making and drive business innovation within emerging markets.</p>
         <div class="kpis" aria-label="Quick metrics" style="margin-top:12px">
-          <div class="kpi"><div class="v" id="kpi-pubs">0</div><div class="muted">Publications / WPs</div></div>
+          <div class="kpi"><div class="v" id="kpi-pubs">0</div><div class="muted">Publications</div></div>
           <div class="kpi"><div class="v" id="kpi-projects">0</div><div class="muted">Projects</div></div>
-          <div class="kpi"><div class="v" id="kpi-talks">0</div><div class="muted">Talks</div></div>
+          <div class="kpi"><div class="v" id="kpi-talks">0</div><div class="muted">Conference Papers</div></div>
         </div>
       </div>
     </section>
 
-    <!-- Research -->
-    <section id="research" class="grid cols-2" style="margin-top:28px" aria-label="Research section">
-      <article class="card reveal">
+    <!-- Research merged into Hero (A1) -->
+      <div class="card reveal" style="margin-top:24px; grid-column:1 / -1">
         <h3>Research Interests</h3>
         <ul class="muted">
           <li>Digital Marketing & Platform Strategy</li>
           <li>Data‑driven Marketing Analytics (SMEs, Emerging Markets)</li>
           <li>Innovation & Consumer Behavior</li>
         </ul>
-      </article>
-      <article class="card reveal">
-        <h3>Current/Planned Work</h3>
-        <ul class="muted">
-          <li>Measuring ad effectiveness for SMEs using platform‑level data.</li>
-          <li>Social influence in low‑data purchase contexts.</li>
-        </ul>
-      </article>
-    </section>
+      </div>
+      </div>
 
     <!-- Publications -->
     <section id="publications" class="card reveal" style="margin-top:20px" aria-label="Publications section">
       <div style="display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap">
-        <h3 style="margin:0">Publications & Working Papers</h3>
+        <h3 style="margin:0">Publication & Conference Papers</h3>
         <div style="display:flex; gap:10px; align-items:center">
           <input id="pub-search" type="search" placeholder="Search title, venue, year…" aria-label="Search publications" style="padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text); min-width:220px">
           <select id="pub-filter" aria-label="Filter by type" style="padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)">
@@ -227,14 +257,97 @@
 
     <!-- Projects -->
     <section id="projects" class="card reveal" style="margin-top:20px" aria-label="Projects section">
-      <h3>Selected Projects</h3>
+      <h3>Projects</h3>
       <div id="proj-list" class="grid cols-3"></div>
     </section>
 
-    <!-- Teaching -->
-    <section id="teaching" class="card reveal" style="margin-top:20px" aria-label="Teaching section">
-      <h3>Teaching & Mentoring</h3>
-      <ul id="teach-list" class="list"></ul>
+    <!-- Education -->
+    <section id="education" class="card reveal" style="margin-top:20px" aria-label="Education section">
+      <h3>Education</h3>
+      <div class="info-row">
+        <div class="side-photo"><img src="assets/img/education.jpg" alt="Education"/></div>
+        <div class="info-col">
+          <div class="item"><strong>Bachelor of Business Administration in Marketing</strong> — University of Rajshahi, Bangladesh <span class="muted">(Jan 2019 - May 2024)</span></div>
+          <div class="item"><strong>Relevant Coursework:</strong> Marketing Management, Advertising & PR, Consumer Behavior, International Business, International Marketing, Strategic Marketing, Business Research Methods, Quantitative Business Analysis, Competitive Analysis, Marketing Research & Digital Marketing.</div>
+        </div>
+      </div>
+    </section>
+      </div>
+    </section>
+
+    <!-- Work Experience -->
+    <section id="experience" class="card reveal" style="margin-top:20px" aria-label="Work experience section">
+      <h3>Work Experiences</h3>
+      <div class="info-row">
+        <div class="side-photo"><img src="assets/img/experience.png" alt="Work"/></div>
+        <div class="info-col">
+          <div class="item"><strong>Digital Marketing Manager (Remote)</strong> — KmXtend Hair Extensions <span class="muted">(May 2025 - Present)</span>
+            <ul class="muted">
+              <li>Drove <strong>1300%+ ROAS</strong>, generating <strong>$40K+/month</strong> via full-funnel Google & Meta ads.</li>
+              <li>Boosted conversion rate by <strong>65%</strong> & reduced CPA by <strong>50%</strong> through creative, audience & bid optimization.</li>
+              <li>Built UGC-based Reels, remarketing & tracking systems — led to <strong>280% revenue growth</strong> in 6 months.</li>
+            </ul>
+          </div>
+          </div></div></div>
+      <div class="info-row" style="margin-top:16px">
+        <div class="side-photo"><img src="assets/img/experience-next.png" alt="NEXT Ventures"/></div>
+        <div class="info-col">
+          <div class="item"><strong>Digital Marketing Intern</strong> — NEXT Ventures, Dhaka <span class="muted">(Feb 2024 – Apr 2024)</span>
+            <ul class="muted">
+              <li>Supported campaign execution across Google, Meta, Bing & Twitter (X).</li>
+              <li>Analyzed international campaigns (Nigeria, Egypt, KSA, etc.).</li>
+              <li>Helped raise <strong>USD 1,000,000+</strong> via Leap Year & BOGO offer campaigns for FundedNext.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership & Volunteering -->
+    <section id="leadership" class="card reveal" style="margin-top:20px" aria-label="Leadership & volunteering section">
+      <h3>Leadership & Volunteering</h3>
+
+      <!-- RUMARC Leadership -->
+      <div class="info-row">
+        <div class="side-photo"><img src="assets/img/leadership-rumarc.jpg" alt="RUMARC"/></div>
+        <div class="info-col">
+          <div class="item"><strong>Co-Founder | Founding Vice-President</strong> — Rajshahi University Marketing Club (RUMARC) <span class="muted">(Oct 2023 - Apr 2024)</span>
+            <ul class="muted">
+              <li>Co-founded the club to promote marketing skill‑building, networking & professional growth among students.</li>
+              <li>Developed the club constitution & designed governance structure and executive organogram.</li>
+              <li>Led major events including seminars with Marico Bangladesh, PRAN‑RFL job fair & workshops on higher studies, CV writing & Excel mastery.</li>
+              <li>Managed a dynamic executive team, demonstrating strong leadership & communication skills.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Local Guides Work -->
+      <div class="info-row" style="margin-top:16px">
+        <div class="side-photo"><img src="assets/img/leadership-localguides.png" alt="Local Guides"/></div>
+        <div class="info-col">
+          <div class="item"><strong>Local Guides Volunteer</strong> — Google Local Guides Bangladesh (BDLG)
+            <ul class="muted">
+              <li>Organized the <strong>87th Bangladesh Local Guides Meet‑up</strong> (Apr 2018) in collaboration with BDLG.</li>
+              <li>Led Photo Walk & Geo Walk in Chittagong to improve business data and imagery on Google Maps.</li>
+              <li>Promoted digital mapping awareness and supported community engagement & knowledge sharing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Certifications & Skills -->
+    <section id="skills" class="card reveal" style="margin-top:20px" aria-label="Certifications & skills section">
+      <h3>Certifications & Skills</h3>
+      <div class="info-col">
+        <div class="item"><strong>Certifications:</strong> Google Analytics Certification — Google Skillshop (2023); Certificate of Appreciation in Fostering Education & Digital Learning — Youth Opportunities (2020); Fundamentals of Digital Marketing — Google Digital Garage / Skillshop (2020)</div>
+        <div class="item"><strong>Digital Skills:</strong> Google Ads, Google Analytics 4, Facebook/Meta Ads, SEM (Expert), SMM (Expert), MS Office</div>
+        <div class="item"><strong>Technical Skills:</strong> HTML, CSS, JavaScript (Fundamentals)</div>
+        <div class="item"><strong>Soft Skills:</strong> Leadership, Strategic Thinking, Communication, Event Planning</div>
+        <div class="item"><strong>Languages:</strong> Bengali (Native), English (Proficient)</div>
+      </div>
     </section>
 
     <!-- CV -->
@@ -247,16 +360,35 @@
     <!-- Contact -->
     <section id="contact" class="card reveal" style="margin-top:20px" aria-label="Contact section">
       <h3>Contact</h3>
-      <p>Email: <a href="mailto:arif.mkt.ru19@gmail.com">arif.mkt.ru19@gmail.com</a>
-        &nbsp;|&nbsp; GitHub: <a href="https://github.com/aforarif" target="_blank" rel="noopener">@aforarif</a>
-        &nbsp;|&nbsp; LinkedIn: <a href="https://www.linkedin.com/in/aisforarif/">Add your link</a>
-      </p>
-      <form action="https://formspree.io/f/yourformid" method="POST" style="display:grid; gap:12px; max-width:600px">
-        <label>Name<input type="text" name="name" required style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)"></label>
-        <label>Email<input type="email" name="email" required style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)"></label>
-        <label>Message<textarea name="message" rows="5" required style="width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text)"></textarea></label>
-        <button class="btn" type="submit">Send</button>
-      </form>
+      <div class="contact-grid">
+        <!-- Form Left Side -->
+        <form action="https://formspree.io/f/yourformid" method="POST" class="contact-form">
+          <p class="muted" style="margin:0 0 6px">Please feel free to reach out via this form — I will get back to you as soon as possible.</p>
+          <div class="field">
+            <label class="label" for="c-name">Name</label>
+            <input id="c-name" class="input" type="text" name="name" required />
+          </div>
+          <div class="field">
+            <label class="label" for="c-email">Email</label>
+            <input id="c-email" class="input" type="email" name="email" required />
+          </div>
+          <div class="field">
+            <label class="label" for="c-msg">Message</label>
+            <textarea id="c-msg" class="textarea" name="message" rows="6" required></textarea>
+          </div>
+          <div class="contact-actions">
+            <button class="btn primary" type="submit">Send Message</button>
+          </div>
+        </form>
+
+        <!-- Contact Info Right Side -->
+        <div class="contact-info">
+          <p><strong>E-mail:</strong> <a href="mailto:arif.mkt.ru19@gmail.com">arif.mkt.ru19@gmail.com</a></p>
+          <p><strong>Alternative:</strong> <a href="mailto:s1911035109@ru.ac.bd">s1911035109@ru.ac.bd</a></p>
+          <p><strong>Cell:</strong> <a href="tel:+8801772672143">+880 1772672143</a></p>
+          <p><strong>Address:</strong> Dhaka, Bangladesh</p>
+        </div>
+      </div>
     </section>
 
     <footer class="wrap" aria-label="Footer">
@@ -264,7 +396,9 @@
     </footer>
   </main>
   <script>
-  // ======== EDIT YOUR DATA BELOW (no HTML changes needed) ========
+    // Enable JS styles
+    document.documentElement.classList.remove('no-js');
+    // ======== EDIT YOUR DATA BELOW (no HTML changes needed) ========
   const DATA = {
     pubs: [
       {type:'working-paper', year:2025, title:'Measuring SME Ad Effectiveness in Emerging Markets', venue:'Working paper', authors:'Md Ariful Islam', link:'#', pdf:'#'},
@@ -275,10 +409,7 @@
       {title:'Consumer Review Mining', desc:'NLP pipeline to extract sentiment and themes.', link:'#'},
       {title:'A/B Testing Toolkit', desc:'Lightweight JS toolkit for simple site experiments.', link:'#'}
     ],
-    teaching: [
-      {role:'Mentor', course:'Undergrad marketing case prep', year:'2024'},
-      {role:'Workshop', course:'Intro to Data-Driven Marketing', year:'2025'}
-    ]
+    teaching: []
   };
 
   // Helpers
@@ -322,10 +453,8 @@
     if(p.link && p.link !== '#') card.append(el('div', {style:'margin-top:8px'}, [el('a', {href:p.link, target:'_blank', rel:'noopener', class:'btn'}, [document.createTextNode('View')]) ]));
     projList.append(card);
   });
+  // (Teaching removed)
 
-  // Teaching
-  const teachList = $('#teach-list');
-  DATA.teaching.forEach(t => teachList.append(el('li', {class:'item reveal', html:`${t.year} — <strong>${t.role}</strong>: ${t.course}`})));
 
   // Search + filter hooks
   const search = $('#pub-search');
@@ -346,23 +475,33 @@
   // Reveal-on-scroll
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
-  }, {threshold:0.12});
+  }, {threshold:0.6});
   document.querySelectorAll('.reveal, .item, .card').forEach(elm=> io.observe(elm));
 
-  // Active nav highlighting
-  // Observe sections, including the hero with id="home"
-  const sections = ['home','research','publications','projects','teaching','cv','contact']
-    .map(id=> document.getElementById(id) || document.querySelector(`#${id}`));
+  // Active nav highlighting (scroll-driven, single active)
+  const headerEl = document.querySelector('header');
+  const sectionIds = ['home','publications','projects','education','experience','leadership','skills','cv','contact'];
+  const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
   const links = Array.from(document.querySelectorAll('nav a'));
-  const sectionObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const id = entry.target.getAttribute('id');
-        links.forEach(a=> a.classList.toggle('active', a.getAttribute('href')==`#${id}`));
-      }
-    });
-  }, {rootMargin: '-80px 0px -55% 0px', threshold: 0.3});
-  sections.filter(Boolean).forEach(sec=> sectionObserver.observe(sec));
+
+  function setActive(id){
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+  }
+  function updateActive(){
+    const headerH = (headerEl?.offsetHeight || 64);
+    // Activation line at 50% of viewport below the fixed header (Option A)
+    const activation = window.scrollY + headerH + window.innerHeight * 0.5;
+    let current = sectionEls[0]?.id || '';
+    for(const sec of sectionEls){
+      if(sec.offsetTop <= activation) current = sec.id; else break;
+    }
+    // If near the bottom, force last section active
+    const docBottom = Math.ceil(window.innerHeight + window.scrollY) >= Math.floor(document.body.scrollHeight - 2);
+    if(docBottom) current = sectionEls[sectionEls.length-1].id;
+    if(current) setActive(current);
+  }
+  ['scroll','resize','load'].forEach(evt => window.addEventListener(evt, updateActive, {passive:true}));
+  updateActive();
 
   // Mobile nav toggle
   const nav = document.getElementById('site-nav');
@@ -380,6 +519,34 @@
       }
     }));
   }
+</script>
+<script>
+// Enhance nav: set active immediately on click and close mobile menu
+(function(){
+  const nav = document.getElementById('site-nav');
+  const toggle = document.querySelector('.nav-toggle');
+  const links = Array.from(document.querySelectorAll('nav a'));
+  links.forEach(a=> a.addEventListener('click', ()=>{
+    links.forEach(x=> x.classList.remove('active'));
+    a.classList.add('active');
+    if(nav && nav.classList.contains('open')){
+      nav.classList.remove('open');
+      if(toggle) toggle.setAttribute('aria-expanded','false');
+    }
+  }));
+})();
+
+// Make back/forward navigation smooth too
+(function(){
+  try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  function smoothToHash(hash){
+    const id = (hash||'').replace('#','');
+    const el = id && document.getElementById(id);
+    if(el){ el.scrollIntoView({behavior:'smooth', block:'start', inline:'nearest'}); }
+  }
+  window.addEventListener('popstate', ()=> smoothToHash(location.hash));
+  window.addEventListener('load', ()=> { if(location.hash) setTimeout(()=>smoothToHash(location.hash), 0); });
+})();
 </script>
 </body>
 </html>
